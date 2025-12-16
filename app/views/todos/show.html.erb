@@ -1,0 +1,50 @@
+<div class="page-header">
+  <%= link_to todos_path, class: "back-link" do %>
+    ← 一覧に戻る
+  <% end %>
+  <h2 class="page-title">タスク詳細</h2>
+</div>
+
+<% if notice.present? %>
+  <div class="notice"><%= notice %></div>
+<% end %>
+
+<div class="show-container">
+  <div class="show-card <%= 'completed' if @todo.completed %>">
+    <div class="show-header">
+      <span class="show-status <%= @todo.completed ? 'status-done' : 'status-pending' %>">
+        <%= @todo.completed ? '✓ 完了' : '○ 未完了' %>
+      </span>
+    </div>
+    
+    <h3 class="show-title"><%= @todo.title %></h3>
+    
+    <% if @todo.description.present? %>
+      <div class="show-description">
+        <p><%= @todo.description %></p>
+      </div>
+    <% end %>
+    
+    <div class="show-meta">
+      <div class="meta-item">
+        <span class="meta-label">作成日</span>
+        <span class="meta-value"><%= @todo.created_at.strftime("%Y年%m月%d日 %H:%M") %></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">更新日</span>
+        <span class="meta-value"><%= @todo.updated_at.strftime("%Y年%m月%d日 %H:%M") %></span>
+      </div>
+    </div>
+    
+    <div class="show-actions">
+      <%= link_to edit_todo_path(@todo), class: "btn btn-secondary" do %>
+        ✏️ 編集
+      <% end %>
+      <%= button_to todo_path(@todo), method: :delete, 
+          class: "btn btn-danger",
+          form: { data: { turbo_confirm: "このタスクを削除しますか？" } } do %>
+        🗑️ 削除
+      <% end %>
+    </div>
+  </div>
+</div>

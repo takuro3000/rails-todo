@@ -1,0 +1,10 @@
+<div class="page-header">
+  <%= link_to todos_path, class: "back-link" do %>
+    ← 一覧に戻る
+  <% end %>
+  <h2 class="page-title">新しいタスク</h2>
+</div>
+
+<div class="form-container">
+  <%= render "form", todo: @todo %>
+</div>

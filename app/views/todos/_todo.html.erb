@@ -1,0 +1,37 @@
+<div id="<%= dom_id todo %>" class="todo-card <%= 'completed' if todo.completed %>">
+  <div class="todo-checkbox">
+    <%= form_with model: todo, method: :patch, class: "checkbox-form" do |f| %>
+      <%= f.check_box :completed, 
+          onchange: "this.form.requestSubmit()", 
+          class: "todo-check",
+          checked: todo.completed %>
+    <% end %>
+  </div>
+  
+  <div class="todo-content">
+    <h3 class="todo-title"><%= todo.title %></h3>
+    <% if todo.description.present? %>
+      <p class="todo-description"><%= todo.description %></p>
+    <% end %>
+    <div class="todo-meta">
+      <span class="todo-date">
+        <%= todo.created_at.strftime("%Y年%m月%d日") %>
+      </span>
+      <span class="todo-status <%= todo.completed ? 'status-done' : 'status-pending' %>">
+        <%= todo.completed ? '完了' : '未完了' %>
+      </span>
+    </div>
+  </div>
+  
+  <div class="todo-actions">
+    <%= link_to edit_todo_path(todo), class: "action-btn edit-btn", title: "編集" do %>
+      ✏️
+    <% end %>
+    <%= button_to todo_path(todo), method: :delete, 
+        class: "action-btn delete-btn", 
+        title: "削除",
+        form: { data: { turbo_confirm: "このタスクを削除しますか？" } } do %>
+      🗑️
+    <% end %>
+  </div>
+</div>

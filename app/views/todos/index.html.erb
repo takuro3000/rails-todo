@@ -1,0 +1,39 @@
+<% if notice.present? %>
+  <div class="notice"><%= notice %></div>
+<% end %>
+
+<div class="todo-header">
+  <h2 class="page-title">タスク一覧</h2>
+  <%= link_to new_todo_path, class: "btn btn-primary" do %>
+    <span class="btn-icon">+</span> 新しいタスク
+  <% end %>
+</div>
+
+<div class="todo-stats">
+  <div class="stat">
+    <span class="stat-number"><%= @todos.count %></span>
+    <span class="stat-label">全タスク</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number"><%= @todos.where(completed: true).count %></span>
+    <span class="stat-label">完了</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number"><%= @todos.where(completed: false).count %></span>
+    <span class="stat-label">未完了</span>
+  </div>
+</div>
+
+<div id="todos" class="todo-list">
+  <% if @todos.empty? %>
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <p>タスクがありません</p>
+      <p class="empty-hint">新しいタスクを追加してみましょう</p>
+    </div>
+  <% else %>
+    <% @todos.order(created_at: :desc).each do |todo| %>
+      <%= render todo %>
+    <% end %>
+  <% end %>
+</div>
