@@ -11,7 +11,23 @@
   <div class="todo-content">
     <h3 class="todo-title"><%= todo.title %></h3>
     <% if todo.description.present? %>
-      <p class="todo-description"><%= todo.description %></p>
+      <div data-controller="read-more">
+        <p class="todo-description line-clamp-3" data-read-more-target="content">
+          <%= todo.description %>
+        </p>
+        <button type="button" 
+                class="read-more-btn hidden" 
+                data-read-more-target="expandButton" 
+                data-action="read-more#expand">
+          続きを読む
+        </button>
+        <button type="button" 
+                class="read-more-btn hidden" 
+                data-read-more-target="collapseButton" 
+                data-action="read-more#collapse">
+          閉じる
+        </button>
+      </div>
     <% end %>
     <div class="todo-meta">
       <span class="todo-date">
