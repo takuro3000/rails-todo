@@ -24,6 +24,17 @@ services:
       DATABASE_URL: postgres://postgres:password@db:5432/rails_todo_development
       RAILS_ENV: development
 
+  test:
+    build: .
+    volumes:
+      - .:/rails-app
+      - bundle_data:/usr/local/bundle
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/rails_todo_test
+      RAILS_ENV: test
+
 volumes:
   postgres_data:
   bundle_data:
